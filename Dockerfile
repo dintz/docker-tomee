@@ -18,7 +18,8 @@ ENV GPG_KEYS \
 	DBCCD103B8B24F86FFAAB025C8BB472CD297D428 \
 	F067B8140F5DD80E1D3B5D92318242FE9A0B1183 \
 	FAA603D58B1BA4EDF65896D0ED340E0E6D545F97
-RUN set -xe \
+RUN apk --update --virtual build-dependencies add gpgme \
+	&& set -xe \
 	&& for key in $GPG_KEYS; do \
 		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
 	done
@@ -31,7 +32,8 @@ RUN set -x \
 	&& mv apache-tomee-jaxrs-1.7.5/* /usr/local/tomee \
 	&& rm -Rf apache-tomee-jaxrs-1.7.5 \
 	&& rm bin/*.bat \
-	&& rm tomee.tar.gz*
+	&& rm tomee.tar.gz* \
+	&& apk --update del build-dependencies
 
 
 EXPOSE 8080
