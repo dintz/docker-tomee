@@ -18,7 +18,7 @@ ENV GPG_KEYS \
 	DBCCD103B8B24F86FFAAB025C8BB472CD297D428 \
 	F067B8140F5DD80E1D3B5D92318242FE9A0B1183 \
 	FAA603D58B1BA4EDF65896D0ED340E0E6D545F97
-RUN apk --update --virtual build-dependencies add gpgme \
+RUN apk --update --virtual build-dependencies add gpgme curl tar \
 	&& set -xe \
 	&& for key in $GPG_KEYS; do \
 		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
